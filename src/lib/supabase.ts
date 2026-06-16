@@ -16,8 +16,8 @@ export function initSupabaseKeys(url: string, key: string) {
 // Helper to check if Supabase is configured
 export function getSupabaseKeys() {
   const meta = import.meta as any;
-  const url = supabaseUrl || meta.env?.VITE_SUPABASE_URL || "";
-  const key = supabaseAnonKey || meta.env?.VITE_SUPABASE_ANON_KEY || "";
+  const url = supabaseUrl || meta.env?.VITE_SUPABASE_URL || "https://xhsxktsnmrrsxcmouqki.supabase.co";
+  const key = supabaseAnonKey || meta.env?.VITE_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhoc3hrdHNubXJyc3hjbW91cWtpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3NDUwNzcsImV4cCI6MjA5MzMyMTA3N30.A-ja-yPnlFT3zMP5ew7HSYETN4-5aiClLyW1YXYWDfA";
   return { url, key, isConfigured: !!(url && key) };
 }
 
