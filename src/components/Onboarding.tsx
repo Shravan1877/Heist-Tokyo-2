@@ -623,9 +623,7 @@ export default function Onboarding({ userEmail, userId, onLogout }: OnboardingPr
         body: JSON.stringify({
           user_id: userId,
           message: text,
-          history: messages.map(m => ({ role: m.role, content: m.content })),
-          is_test: false,
-          plan: adminPlan
+          history: messages.map(m => ({ role: m.role, content: m.content }))
         })
       });
 

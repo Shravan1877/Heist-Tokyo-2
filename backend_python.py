@@ -681,8 +681,7 @@ app = FastAPI(title="HEIST Assistant Backend", version="4.0")
 origins = [
     "https://tokyo.heistfashion.tech",
     "http://localhost:5173",
-    "http://localhost:3000",
-    "*"
+    "http://127.0.0.1:5173",
 ]
 
 app.add_middleware(

@@ -1,29 +1,14 @@
-// Centralized backend API utility mapping for microservices
+// Centralized backend API utility for the authoritative FastAPI service.
 const meta = import.meta as any;
-export const API_BASE_URL = (meta.env?.VITE_API_BASE_URL || "").replace(/\/$/, "");
+
+export const DEFAULT_API_BASE_URL = "http://localhost:8000";
+export const API_BASE_URL = (meta.env?.VITE_API_BASE_URL || DEFAULT_API_BASE_URL).replace(/\/$/, "");
 
 /**
- * Returns a fully-qualified URL pointing to the decoupled backend microservice.
- * If VITE_API_BASE_URL is not set, fallback to relative API routing paths.
+ * Returns a fully-qualified URL pointing to the Python/FastAPI backend.
+ * Override with VITE_API_BASE_URL when the API is hosted somewhere other than localhost:8000.
  */
 export function getApiUrl(path: string): string {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  
-  // Dynamic guard: If we are in the browser and running locally, in a sandbox,
-  // or on an AI Studio preview/development domain (*.run.app), always bypass
-  // external API base URLs and use relative routing to communicate with our active server.
-  if (typeof window !== "undefined") {
-    const hn = window.location.hostname;
-    if (
-      hn === "localhost" || 
-      hn.includes("127.0.0.1") || 
-      hn.includes(".run.app") || 
-      hn.includes("gitpod") || 
-      hn.includes("github")
-    ) {
-      return cleanPath;
-    }
-  }
-  
   return `${API_BASE_URL}${cleanPath}`;
 }

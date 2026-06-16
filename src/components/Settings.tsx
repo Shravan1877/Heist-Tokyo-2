@@ -5,6 +5,7 @@ import {
 import GsapSerifHeader from "./GsapSerifHeader";
 import { getSupabase } from "../lib/supabase";
 import { TIER_CONFIG } from "../lib/tier_config";
+import { getApiUrl } from "../lib/api";
 
 interface SettingsProps {
   userEmail: string;
@@ -80,7 +81,7 @@ export default function Settings({ userEmail, userId, onLogout, onBack }: Settin
   const handleForceUpgrade = async (requestedPlan: string) => {
     setIsUpgradingPlan(requestedPlan);
     try {
-      const response = await fetch("/api/upgrade-premium", {
+      const response = await fetch(getApiUrl("/api/upgrade-premium"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
