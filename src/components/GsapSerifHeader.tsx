@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
+import React from "react";
 
 interface GsapSerifHeaderProps extends React.HTMLAttributes<HTMLElement> {
   /**
@@ -18,8 +17,6 @@ export default function GsapSerifHeader({
   className = "",
   tag: Tag = "h1",
 }: GsapSerifHeaderProps) {
-  const containerRef = useRef<HTMLHeadingElement>(null);
-
   const finalLines: string[] = React.useMemo(() => {
     if (propLines && propLines.length > 0) return propLines;
     if (typeof children === "string") {
@@ -31,37 +28,11 @@ export default function GsapSerifHeader({
     return [];
   }, [children, propLines]);
 
-  useEffect(() => {
-    if (!containerRef.current || finalLines.length === 0) return;
-
-    const elements = containerRef.current.querySelectorAll(".mask-line-content");
-    if (elements.length === 0) return;
-
-    // Set initial state
-    gsap.set(elements, { y: "100%" });
-
-    // Rhythmic, high-end editorial cascade on mount
-    gsap.to(elements, {
-      y: 0,
-      duration: 1.0,
-      ease: "power2.out", // Smooth easeOutQuart transition
-      stagger: 0.15, // exactly 0.15s stagger
-      force3D: true,
-    });
-  }, [finalLines]);
-
   return (
-    <Tag
-      ref={containerRef as any}
-      className={`font-serif tracking-tight text-[var(--text-primary)] ${className}`}
-    >
+    <Tag className={`font-serif tracking-tight text-[var(--text-primary)] ${className}`}>
       {finalLines.map((line, idx) => (
-        <span
-          key={idx}
-          className="block overflow-hidden relative"
-          style={{ verticalAlign: "top" }}
-        >
-          <span className="mask-line-content block transform will-change-transform">
+        <span key={idx} className="block overflow-hidden relative align-top">
+          <span className="block transform will-change-transform">
             {line}
           </span>
         </span>
